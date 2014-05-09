@@ -10,17 +10,18 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'thin'
 gem 'react-rails', '~> 0.10.0.0'
+gem 'pg'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_20]
   gem 'rails_layout'
+  gem 'sqlite3'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rspec-rails'
-  gem 'sqlite3'
 end
 group :test do
   gem 'capybara'
