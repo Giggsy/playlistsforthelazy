@@ -5,11 +5,11 @@
 img {
   @extend .img-responsive;
   margin: 0 auto;
-  }
+}
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
-  }
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -17,19 +17,19 @@ img {
 .column {
   @extend .col-md-6;
   @extend .text-center;
-  }
+}
 .form {
   @extend .col-md-6;
-  }
+}
 .form-centered {
   @extend .col-md-6;
   @extend .text-center;
-  }
+}
 .submit {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-lg;
-  }
+}
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -37,12 +37,12 @@ main {
   background-color: #eee;
   padding-bottom: 80px;
   width: 100%;
-  margin-top: 51px; // accommodate the navbar
-  }
+  //margin-top: 51px; // accommodate the navbar
+}
 section {
   @extend .row;
   margin-top: 20px;
-  }
+}
 
 // Styles for Devise views
 // using Bootstrap
@@ -56,6 +56,7 @@ section {
   @extend .well;
   @extend .well-lg;
   padding-bottom: 40px;
+  background-color: #2d2d2d;
 }
 .authform .right {
   float: right !important;
@@ -78,4 +79,69 @@ section {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-xs;
+}
+
+body {
+  background-color: #2d2d2d;
+  color: white;
+  font-weight: 300;
+}
+
+main {
+  @extend body;
+  padding-bottom: 0;
+}
+
+#user_remember_me {
+  margin-left: 0;
+}
+
+.navigation {
+  max-height: 100vh;
+    float: right;
+    overflow: scroll;
+}
+
+#player-container, #list-container {
+  padding: 0;
+}
+
+#player {
+  margin-top: 51px;
+}
+
+.navigation ul {
+    background-color: #222222;
+    cursor: pointer;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.navigation .header {
+    padding: 15px;
+    background-color: #4e5053;
+}
+
+.navigation li {
+    padding: 15px;
+    color: #999999;
+}
+    li:hover {
+      background: #3498db;
+      color: white;
+    }
+
+.navigation .selected {
+    background-color: #3498db;
+    color: white;
+}
+
+input{
+  color: black;
+}
+
+.search-bar {
+  margin-top: 51px;
 }
