@@ -10,7 +10,9 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'thin'
 gem 'react-rails', '~> 0.10.0.0'
-gem 'pg'
+group :production do
+  gem 'pg'
+end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_20]
