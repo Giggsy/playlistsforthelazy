@@ -3,8 +3,7 @@
 
 // make all images responsive by default
 img {
-  @extend .img-responsive;
-  margin: 0 auto;
+  max-height: 50px;
 }
 // override for the 'Home' navigation link
 .navbar-brand {
@@ -98,7 +97,7 @@ main {
 
 .navigation {
   max-height: 100vh;
-    float: right;
+    // float: right;
     overflow: scroll;
 }
 

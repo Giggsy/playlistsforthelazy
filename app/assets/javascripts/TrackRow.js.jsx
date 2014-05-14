@@ -7,17 +7,18 @@ var TrackRow = React.createClass({
     this.props.setCurrentAndNext(this.props.track);
   },
   render: function() {
-    debugger;
     var classString;
-    if (this.props.track.current) {
-      classString = 'selected'
+    if (this.props.track === this.props.currentTrack) {
+      classString = 'selected';
     }
-    if (this.props.track.next) {
-      classString += ' next'
+    if (this.props.track === this.props.nextTrack) {
+      classString = 'next';
     }
     return (
-      <li onClick={this.handleClick} 
-        className={classString}>{this.props.track.title}</li>
+      <span>
+        <li onClick={this.handleClick}
+            className={classString}>{this.props.track.title}</li>
+      </span>
     );
   }
 })

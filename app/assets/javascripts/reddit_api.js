@@ -3,7 +3,7 @@ RedditApi = (function() {
 
   function getTracksBySubreddit(subreddit) {
     var tracks;
-    $.ajax({ url: 'http://www.reddit.com/r/' + subreddit + '.json',
+    $.ajax({ url: 'http://www.reddit.com/r/' + subreddit + '.json?limit=100',
      async: false,
      dataType: 'json',
      success: function(posts) {

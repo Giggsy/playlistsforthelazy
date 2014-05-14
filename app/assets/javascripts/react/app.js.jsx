@@ -3,10 +3,12 @@
  */
 var App = React.createClass({
   getInitialState: function() {
-    console.log('loaded')
     return {
+      currentlyShowing: 'Archives',
       subreddit: '',
-      tracks: []
+      tracks: [],
+      currentTrack: {},
+      nextTrack: {}
     };
   },
 
@@ -22,33 +24,44 @@ var App = React.createClass({
     });
   },
 
+  handleUserNav: function(e) {
+    debugger;
+    this.setState({
+      currentlyShowing: e.target.innerText
+    })
+  },
+
   setCurrentAndNext: function (track) {
     var tracks = this.state.tracks;
     var index = tracks.indexOf(track);
     var nextTrack = tracks[index + 1];
 
-    tracks.forEach(function(track) {
-      track.current = false;
-      track.next =false;
-    });
-
-    track.current = true;
-    nextTrack.next = true;
-
     this.setState({
-      tracks: tracks
+      currentTrack: track,
+      nextTrack: nextTrack
     });
-    debugger;
   },
-
+  
   render: function() {
     return (
       <div>
         <SearchBar subreddit={this.state.subreddit}
           onUserInput={this.handleUserInput}
           updateTracks={this.updateTracks} />
+        <NavigationMenu navSelector={this.handleUserNav}
+          currentlyShowing={this.state.currentlyShowing}/>
+        {this.state.currentlyShowing === "Tracks" ? 
         <TrackList tracks={this.state.tracks}
-          setCurrentAndNext={this.setCurrentAndNext} />
+          setCurrentAndNext={this.setCurrentAndNext}
+          currentTrack={this.state.currentTrack}
+          nextTrack={this.state.nextTrack}/>
+        : null}
+        {this.state.currentlyShowing === "Archives" ?
+        <ArchivesList />
+        : null}
+        {this.state.currentlyShowing === "Favorites" ?
+        <FavoritesList />
+        : null}
       </div>
     );
   }
