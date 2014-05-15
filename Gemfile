@@ -19,6 +19,7 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_20]
   gem 'rails_layout'
   gem 'sqlite3'
+  gem 'pry'
 end
 group :development, :test do
   gem 'factory_girl_rails'
@@ -30,4 +31,5 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
+  gem 'selenium-webdriver'
 end

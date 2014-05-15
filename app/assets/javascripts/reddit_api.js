@@ -22,7 +22,7 @@ RedditApi = (function() {
         var track = {
           title: info.media.oembed.title,
           thumbnail: info.media.oembed.thumbnail_url,
-          videoId: getVideoId(info.media.oembed.url)
+          video_id: getVideoId(info.media.oembed.url)
         };
         tracks.push(track);
       }

@@ -4,10 +4,22 @@
 
 
 var ArchivesList = React.createClass({
-
   render: function() {
+    console.log(2)
+    var self = this;
+    var rows = [];
+    this.props.playlists.map(function (playlist, i) {
+      rows.push(<ArchiveRow key={i}
+                            playlist={playlist}
+                            getArchivedPlaylistTracks={self.props.getArchivedPlaylistTracks}/>
+               );
+    });
     return (
-      <div>Archives</div>
+      <div className="navigation">
+        <ul>
+          {rows}
+        </ul>
+      </div>
     );
   }
 

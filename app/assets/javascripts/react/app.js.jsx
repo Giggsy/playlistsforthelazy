@@ -2,14 +2,31 @@
  * @jsx React.DOM
  */
 var App = React.createClass({
+  componentDidMount: function() {
+    var self = this;
+    $.ajax({
+      url: 'playlists',
+      type: 'GET',
+      asyn: false,
+      dataType: 'json',
+      success: function(data) {
+        self.setState({
+          playlists: data.playlists
+        });
+      }
+    })
+
+  },
+
   getInitialState: function() {
     return {
       currentlyShowing: 'Archives',
       subreddit: '',
       tracks: [],
       currentTrack: {},
-      nextTrack: {}
-    };
+      nextTrack: {},
+      playlists: []
+    }
   },
 
   handleUserInput: function(subreddit) {
@@ -19,13 +36,39 @@ var App = React.createClass({
   },
 
   updateTracks: function(subreddit) {
-    this.setState({
-      tracks: RedditApi.getTracksBySubreddit(subreddit)
+    var self = this;
+    this.setState({ tracks: RedditApi.getTracksBySubreddit(subreddit) }, function() { 
+      $.ajax({
+        url: '/playlists',
+        type: 'POST',
+        dataType: 'json',
+        data: {data: this.state},
+        success: function (data) {
+          self.setState({
+            playlists: data.playlists,
+            currentlyShowing: "Tracks"
+          });
+        }
+      });
     });
   },
 
+  getArchivedPlaylistTracks: function(subreddit_id) {
+    var self = this;
+    $.ajax({
+     url: '/playlists/' + subreddit_id,
+     type: 'GET',
+     dataType: 'json',
+     success: function(data) {
+      self.setState({
+        tracks: data.tracks,
+        currentlyShowing: 'Tracks'
+      });
+     }
+   });
+  },
+
   handleUserNav: function(e) {
-    debugger;
     this.setState({
       currentlyShowing: e.target.innerText
     })
@@ -57,7 +100,9 @@ var App = React.createClass({
           nextTrack={this.state.nextTrack}/>
         : null}
         {this.state.currentlyShowing === "Archives" ?
-        <ArchivesList />
+        <ArchivesList 
+          playlists={this.state.playlists}
+          getArchivedPlaylistTracks={this.getArchivedPlaylistTracks} />
         : null}
         {this.state.currentlyShowing === "Favorites" ?
         <FavoritesList />

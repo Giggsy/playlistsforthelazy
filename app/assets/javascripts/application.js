@@ -16,4 +16,5 @@
 //= require react
 //= require reddit_api
 //= require jQuery.tubeplayer.min
+//= require moment.min
 //= require_tree .

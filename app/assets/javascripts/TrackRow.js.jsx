@@ -3,7 +3,7 @@
  */
 var TrackRow = React.createClass({
   handleClick: function () {
-    YoutubePlayer.playVideo(this.props.track.videoId);
+    YoutubePlayer.playVideo(this.props.track.video_id);
     this.props.setCurrentAndNext(this.props.track);
   },
   render: function() {

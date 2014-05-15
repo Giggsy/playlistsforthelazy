@@ -21,6 +21,7 @@ var SearchBar = React.createClass({
           value={this.props.subreddit}
           ref="searchSubreddit"
           onChange={this.handleChange}
+          id="subreddit-search-bar"
           className="search-bar"/>
       </form> 
     );
