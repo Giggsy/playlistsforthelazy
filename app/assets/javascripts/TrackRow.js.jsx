@@ -10,9 +10,10 @@ var TrackRow = React.createClass({
     var classString;
     if (this.props.track === this.props.currentTrack) {
       classString = 'selected';
-    }
-    if (this.props.track === this.props.nextTrack) {
+    } else if  (this.props.track === this.props.nextTrack) {
       classString = 'next';
+    } else if (this.props.track === this.props.prevTrack) {
+      classString = 'previous';
     }
     return (
       <span>

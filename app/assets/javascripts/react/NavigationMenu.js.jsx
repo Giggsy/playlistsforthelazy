@@ -9,7 +9,7 @@ var NavigationMenu = React.createClass({
     ['Tracks', 'Archives', 'Favorites'].map(function(navCategory) {
       var classString = "btn btn-default";
       if (self.props.currentlyShowing === navCategory) {
-        classString += "active";
+        classString += " active";
       }
       navCategories.push(
         <div className="btn-group">

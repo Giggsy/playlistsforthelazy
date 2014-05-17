@@ -1,12 +1,17 @@
 $(function () {
   YoutubePlayer.initPlayer();
   YoutubePlayer.resizePlayer();
+  YoutubePlayer.playNext();
+  YoutubePlayer.playPrev();
+  YoutubePlayer.stopPlayer();
+  YoutubePlayer.play();
 });
 
 var YoutubePlayer = (function() {
+  var Player;
 
   function initPlayer() {
-    $("#player").tubeplayer({
+    Player = $("#player").tubeplayer({
       allowFullScreen: "true",
       width: getWidth(),
       //initialVideo: model.tracks[0].videoId,
@@ -20,17 +25,42 @@ var YoutubePlayer = (function() {
   }
 
   function playVideo(videoId) {
-    $("#player").tubeplayer("play", videoId);
+    Player.tubeplayer("play", videoId);
+  }
+
+  function play() {
+    $('body').on('click', '#play', function() {
+      Player.tubeplayer('play')
+    });
+  }
+
+  function stopPlayer() {
+    $('body').on('click', '#stop', function() {
+      Player.tubeplayer('stop')
+    });
+  }
+
+  function playNext() {
+    $('body').on('click', '#next', function() {
+      $('.next').trigger('click') 
+    });
+  }
+
+  function playPrev() {
+    $('body').on('click', '#prev', function() {
+      $('.previous').trigger('click') 
+    });
   }
 
   function resizePlayer() {
     $(window).resize(function () {
-      $("#player").tubeplayer('size', {
+      Player.tubeplayer('size', {
         width: getWidth(),
         height: getWidth()*0.56
       });
     });
   }
+
 
   function getWidth () {
     return $("#player-container").width();
@@ -39,7 +69,11 @@ var YoutubePlayer = (function() {
   return {
     initPlayer: initPlayer,
     playVideo: playVideo,
-    resizePlayer: resizePlayer
+    resizePlayer: resizePlayer,
+    playNext: playNext,
+    playPrev: playPrev,
+    stopPlayer: stopPlayer,
+    play: play
   };
 
 })();

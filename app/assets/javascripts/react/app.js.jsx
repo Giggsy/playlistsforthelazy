@@ -10,6 +10,7 @@ var App = React.createClass({
       tracks: [],
       currentTrack: {},
       nextTrack: {},
+      prevTrack: {},
       playlists: []
     }
   },
@@ -76,13 +77,16 @@ var App = React.createClass({
   },
 
   setCurrentAndNext: function (track) {
+    debugger;
     var tracks = this.state.tracks;
     var index = tracks.indexOf(track);
     var nextTrack = tracks[index + 1];
+    var prevTrack = tracks[index - 1];
 
     this.setState({
       currentTrack: track,
-      nextTrack: nextTrack
+      nextTrack: nextTrack,
+      prevTrack: prevTrack
     });
   },
   
@@ -98,6 +102,7 @@ var App = React.createClass({
         <TrackList tracks={this.state.tracks}
           setCurrentAndNext={this.setCurrentAndNext}
           currentTrack={this.state.currentTrack}
+          prevTrack={this.state.prevTrack}
           nextTrack={this.state.nextTrack}/>
         : null}
         {this.state.currentlyShowing === "Archives" ?

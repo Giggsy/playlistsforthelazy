@@ -11,6 +11,7 @@ var TrackList = React.createClass({
                           track={track}
                           setCurrentAndNext={setCurrentAndNext}
                           currentTrack={self.props.currentTrack}
+                          prevTrack={self.props.prevTrack}
                           nextTrack={self.props.nextTrack}/>
                );
     });
