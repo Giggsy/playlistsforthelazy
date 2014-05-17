@@ -17,7 +17,8 @@ var TrackRow = React.createClass({
     return (
       <span>
         <li onClick={this.handleClick}
-            className={classString}>{this.props.track.title}</li>
+            className={classString}>{this.props.track.title}
+        </li>
       </span>
     );
   }

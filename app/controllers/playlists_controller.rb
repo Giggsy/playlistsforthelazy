@@ -5,6 +5,7 @@ class PlaylistsController < ApplicationController
     playlists = Playlist.ordered.limit(25)
     render :json => { :playlists => playlists }
   end
+  
   def show
     playlist = Playlist.find(params[:id])
     tracks = playlist.tracks 

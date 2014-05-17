@@ -9,9 +9,8 @@ describe "Playlist" do
     #TODO Change test to use VCR
     it "creates new playlist" do
       fill_in_search_bar
-      sleep 5
       expect(Playlist.first.subreddit).to eql "music"
-      expect(Playlist.tracks.count).to gte 5 
+      expect(Playlist.first.tracks.count).to gte 5 
     end
 
   end

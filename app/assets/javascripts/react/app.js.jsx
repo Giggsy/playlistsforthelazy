@@ -2,6 +2,18 @@
  * @jsx React.DOM
  */
 var App = React.createClass({
+
+  getInitialState: function() {
+    return {
+      currentlyShowing: 'Archives',
+      subreddit: '',
+      tracks: [],
+      currentTrack: {},
+      nextTrack: {},
+      playlists: []
+    }
+  },
+  
   componentDidMount: function() {
     var self = this;
     $.ajax({
@@ -16,17 +28,6 @@ var App = React.createClass({
       }
     })
 
-  },
-
-  getInitialState: function() {
-    return {
-      currentlyShowing: 'Archives',
-      subreddit: '',
-      tracks: [],
-      currentTrack: {},
-      nextTrack: {},
-      playlists: []
-    }
   },
 
   handleUserInput: function(subreddit) {
