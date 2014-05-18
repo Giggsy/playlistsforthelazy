@@ -4,14 +4,15 @@
 var TrackList = React.createClass({
   render: function() {
     var self = this;
-    var setCurrentAndNext = this.props.setCurrentAndNext
     var rows = [];
     this.props.tracks.map(function (track, i) {
       rows.push(<TrackRow key={i} 
                           track={track}
-                          setCurrentAndNext={setCurrentAndNext}
+                          setCurrentAndNext={self.props.setCurrentAndNext}
+                          updateFavorites={self.props.updateFavorites}
                           currentTrack={self.props.currentTrack}
                           prevTrack={self.props.prevTrack}
+                          favorite_tracks={self.props.favorite_tracks}
                           nextTrack={self.props.nextTrack}/>
                );
     });
@@ -23,5 +24,5 @@ var TrackList = React.createClass({
       </div>
     );
   }
-})
+});
 

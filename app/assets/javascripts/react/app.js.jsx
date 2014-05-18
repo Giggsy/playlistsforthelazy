@@ -8,27 +8,18 @@ var App = React.createClass({
       currentlyShowing: 'Archives',
       subreddit: '',
       tracks: [],
+      favorite_tracks: [],
       currentTrack: {},
       nextTrack: {},
       prevTrack: {},
-      playlists: []
+      playlists: [],
+      logged_in_user: {}
     }
   },
   
   componentDidMount: function() {
-    var self = this;
-    $.ajax({
-      url: 'playlists',
-      type: 'GET',
-      asyn: false,
-      dataType: 'json',
-      success: function(data) {
-        self.setState({
-          playlists: data.playlists
-        });
-      }
-    })
-
+    Backend.getPlaylists(this);
+    Backend.getFavorites(this);
   },
 
   handleUserInput: function(subreddit) {
@@ -38,36 +29,15 @@ var App = React.createClass({
   },
 
   updateTracks: function(subreddit) {
+    debugger;
     var self = this;
     this.setState({ tracks: RedditApi.getTracksBySubreddit(subreddit) }, function() { 
-      $.ajax({
-        url: '/playlists',
-        type: 'POST',
-        dataType: 'json',
-        data: {data: this.state},
-        success: function (data) {
-          self.setState({
-            playlists: data.playlists,
-            currentlyShowing: "Tracks"
-          });
-        }
-      });
+      Backend.updateTracks(self)
     });
   },
 
   getArchivedPlaylistTracks: function(subreddit_id) {
-    var self = this;
-    $.ajax({
-     url: '/playlists/' + subreddit_id,
-     type: 'GET',
-     dataType: 'json',
-     success: function(data) {
-      self.setState({
-        tracks: data.tracks,
-        currentlyShowing: 'Tracks'
-      });
-     }
-   });
+    Backend.getArchivedPlaylistTracks(this, subreddit_id);
   },
 
   handleUserNav: function(e) {
@@ -77,7 +47,6 @@ var App = React.createClass({
   },
 
   setCurrentAndNext: function (track) {
-    debugger;
     var tracks = this.state.tracks;
     var index = tracks.indexOf(track);
     var nextTrack = tracks[index + 1];
@@ -88,6 +57,10 @@ var App = React.createClass({
       nextTrack: nextTrack,
       prevTrack: prevTrack
     });
+  },
+
+  updateFavorites: function(track) {
+    debugger;
   },
   
   render: function() {
@@ -100,8 +73,10 @@ var App = React.createClass({
           currentlyShowing={this.state.currentlyShowing}/>
         {this.state.currentlyShowing === "Tracks" ? 
         <TrackList tracks={this.state.tracks}
+          favorite_tracks={this.state.favorite_tracks}
           setCurrentAndNext={this.setCurrentAndNext}
           currentTrack={this.state.currentTrack}
+          updateFavorites={this.updateFavorites}
           prevTrack={this.state.prevTrack}
           nextTrack={this.state.nextTrack}/>
         : null}
@@ -111,7 +86,13 @@ var App = React.createClass({
           getArchivedPlaylistTracks={this.getArchivedPlaylistTracks} />
         : null}
         {this.state.currentlyShowing === "Favorites" ?
-        <FavoritesList />
+        <FavoritesList
+          favorite_tracks={this.state.favorite_tracks}
+          setCurrentAndNext={this.setCurrentAndNext}
+          currentTrack={this.state.currentTrack}
+          updateFavorites={this.updateFavorites}
+          prevTrack={this.state.prevTrack}
+          nextTrack={this.state.nextTrack}/>
         : null}
       </div>
     );

@@ -1,7 +1,7 @@
 /**
  * @jsx React.DOM
  */
-var TrackRow = React.createClass({
+var FavoriteTrackRow = React.createClass({
   handleClick: function () {
     YoutubePlayer.playVideo(this.props.track.video_id);
     this.props.setCurrentAndNext(this.props.track);
@@ -37,4 +37,3 @@ var TrackRow = React.createClass({
     );
   }
 })
-

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514063421) do
+ActiveRecord::Schema.define(version: 20140517233119) do
 
   create_table "playlists", force: true do |t|
     t.string   "subreddit"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(version: 20140514063421) do
     t.string   "video_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "tracks_users", id: false, force: true do |t|
+    t.integer "track_id", null: false
+    t.integer "user_id",  null: false
   end
 
   create_table "users", force: true do |t|
