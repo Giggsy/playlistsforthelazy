@@ -29,7 +29,6 @@ var App = React.createClass({
   },
 
   updateTracks: function(subreddit) {
-    debugger;
     var self = this;
     this.setState({ tracks: RedditApi.getTracksBySubreddit(subreddit) }, function() { 
       Backend.updateTracks(self)
@@ -41,13 +40,18 @@ var App = React.createClass({
   },
 
   handleUserNav: function(e) {
+    if (e.target.innerText === "Favorites") {
+      this.check_if_user_signed_in();
+    }
     this.setState({
       currentlyShowing: e.target.innerText
     })
   },
 
   setCurrentAndNext: function (track) {
-    var tracks = this.state.tracks;
+    var tracks;
+    this.state.currentlyShowing === "Favorites" ? 
+      tracks = this.state.favorite_tracks : tracks = this.state.tracks;
     var index = tracks.indexOf(track);
     var nextTrack = tracks[index + 1];
     var prevTrack = tracks[index - 1];
@@ -60,7 +64,16 @@ var App = React.createClass({
   },
 
   updateFavorites: function(track) {
-    debugger;
+    this.check_if_user_signed_in();
+    Backend.updateFavorites(this, track);
+  },
+
+  check_if_user_signed_in: function() {
+    if (this.state.signed_in) {
+      return true;
+    } else{
+      window.location.href = "users/sign_in"
+    }
   },
   
   render: function() {
@@ -86,7 +99,7 @@ var App = React.createClass({
           getArchivedPlaylistTracks={this.getArchivedPlaylistTracks} />
         : null}
         {this.state.currentlyShowing === "Favorites" ?
-        <FavoritesList
+        <TrackList tracks={this.state.favorite_tracks}
           favorite_tracks={this.state.favorite_tracks}
           setCurrentAndNext={this.setCurrentAndNext}
           currentTrack={this.state.currentTrack}

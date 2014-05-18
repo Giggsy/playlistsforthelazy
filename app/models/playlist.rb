@@ -1,7 +1,7 @@
 class Playlist < ActiveRecord::Base
   has_and_belongs_to_many :tracks
 
-  scope :recent, -> { where("created_at > ?", 1.hour.ago) }
+  scope :recent, -> { where("created_at > ?", 1.second.ago) }
   scope :ordered, -> { order('created_at DESC') }
 
   def self.create_if_no_recent subreddit, tracks

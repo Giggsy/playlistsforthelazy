@@ -16,15 +16,18 @@ var TrackRow = React.createClass({
         trackString
     var favoriteString = 'glyphicon glyphicon-heart right';
     var track = this.props.track;
-
-    if (track === this.props.currentTrack) {
+    var favorite_ids = this.props.favorite_tracks.map(function(fav) {
+      return fav.video_id;
+    })
+    if (track.video_id === this.props.currentTrack.video_id) {
       currentlyPlayingString = 'selected';
-    } else if  (track === this.props.nextTrack) {
+    } else if  (track.video_id === this.props.nextTrack.video_id) {
       trackString = 'next';
-    } else if (track === this.props.prevTrack) {
+    } else if (track.video_id === this.props.prevTrack.video_id) {
       trackString = 'previous';
-    } else if (this.props.favorite_tracks.indexOf(track) > 0) {
-      favoriteString += 'favorite';
+    }
+    if (favorite_ids.indexOf(track.video_id) >= 0) {
+      favoriteString += ' favorite';
     }
 
     return (

@@ -3,7 +3,11 @@ class PlaylistsController < ApplicationController
 
   def index
     playlists = Playlist.ordered.limit(25)
-    render :json => { :playlists => playlists }
+    if user_signed_in?
+      render :json => { :playlists => playlists, :signed_in => true }
+    else
+      render :json => { :playlists => playlists }
+    end
   end
   
   def show
@@ -16,7 +20,7 @@ class PlaylistsController < ApplicationController
     extract_params
     Playlist.create_if_no_recent @subreddit, @tracks
     playlists = Playlist.where(:subreddit => @subreddit).ordered
-    render :json =>{ :playlists => playlists }
+    render :json =>{ :playlists => playlists, :tracks => playlists.first.tracks }
   end
 
   private
