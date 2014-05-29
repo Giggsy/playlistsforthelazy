@@ -9,10 +9,10 @@ var App = React.createClass({
       subreddit: '',
       tracks: [],
       favorite_tracks: [],
+      playlists: [],
       currentTrack: {},
       nextTrack: {},
       prevTrack: {},
-      playlists: [],
       logged_in_user: {}
     }
   },
@@ -61,6 +61,7 @@ var App = React.createClass({
       nextTrack: nextTrack,
       prevTrack: prevTrack
     });
+    debugger;
   },
 
   updateFavorites: function(track) {
